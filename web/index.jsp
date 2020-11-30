@@ -1,6 +1,6 @@
 <%-- 
-    Document   : page
-    Created on : Nov 28, 2020, 4:59:01 PM
+    Document   : index
+    Created on : Nov 29, 2020, 10:45:20 AM
     Author     : Juri
 --%>
 
@@ -9,12 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>JKTVR19WebLibrary</title>
     </head>
     <body>
-        <div>Greeting from the Page1</div>
+        <h1>Our Library</h1>
         <p>${info}</p>
-        <br>
-        <a href="index.html">Home</a>
+        <a href="addBook">Add Book</a><hr>
+        
     </body>
 </html>

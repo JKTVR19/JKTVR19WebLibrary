@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Hello Page2!</h1>
+        <p>${info}</p>
     </body>
 </html>
