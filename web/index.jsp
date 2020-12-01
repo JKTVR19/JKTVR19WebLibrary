@@ -15,6 +15,7 @@
         <h1>Our Library</h1>
         <p>${info}</p>
         <a href="addBook">Add Book</a><hr>
+        <a href="listBooks">List Books</a><hr>
         
     </body>
 </html>
