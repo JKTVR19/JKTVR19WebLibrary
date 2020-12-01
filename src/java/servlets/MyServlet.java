@@ -2,6 +2,29 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+
+ * Алгоритм создания Web приложения на Java
+ * To change this template file, choose Tools | Templates
+ * 
+ * and open the template in the editor.
+ * 1. Создать WebApplication в NetBeans
+ * 2. Создать сущностные классы c аннотациями в пакете entity раздела Source Packages
+ * 3. Создать базу данных и настроить persistence.xml.
+ * 4. Создать сессионные Java Enterprice Beans для каждого сущностного класса 
+ *    с помощью помощника NetBeans
+ * 5. Создать странички jsp в разделе Web Pages (/web). 
+ *    Обязательная папка WEB-INF служит для сокрытия ресурсов от прямого доступа
+ * 6. Создать сервлет "MyServlet" в пакете servlets раздела Source Packages.
+ * 7. Настроить параметр аннотации @WebServlet(urlPatterns={...})
+ *    При запросе от клиента содержащего эти параметры будет выполняться метод
+ *    ProcessRequest сервлета "MyServlet", который управляется веб контейнером
+ * 8. Получить текущий запрос из запроса "path"
+ * 9. Обработать запрос в switch и с помощью метода getRequestDispatcher()
+ *    отдать страничку jsp с данными клиенту. 
+ *    Например:
+ *    request.getRequestDispatcher("/WEB-INF/addBookForm.jsp").forward(request, response);
+ * 10. Для получения объектов классов "фасадов" использовать аннотацию @EJB 
+ *    в поле класса "MyServlet"
  */
 package servlets;
 
@@ -62,7 +85,7 @@ private BookFacade bookFacade;
                 }
                 Book book = new Book(name, author, publishedYear);
                 bookFacade.create(book);
-                request.setAttribute("info", "Book data \"" +book.getName()+ "\" received");
+                request.setAttribute("info", "Book\"" +book.getName()+ "\" have been added");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
                 break;    
         }               
