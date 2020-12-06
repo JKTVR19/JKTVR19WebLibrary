@@ -16,6 +16,8 @@
         <p>${info}</p>
         <a href="addBook">Add Book</a><hr>
         <a href="listBooks">List Books</a><hr>
+        <a href="addReader">Add Reader</a><hr>
+        <a href="listReaders">List Readers</a><hr>
         
     </body>
 </html>

@@ -29,6 +29,7 @@
 package servlets;
 
 import entity.Book;
+import entity.Reader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -39,6 +40,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.BookFacade;
+import session.ReaderFacade;
 
 /**
  *
@@ -47,11 +49,15 @@ import session.BookFacade;
 @WebServlet(name = "MyServlet", urlPatterns = {
     "/addBook",
     "/createBook",
-    "/listBooks"
+    "/listBooks",
+    "/addReader",
+    "/createReader",
+    "/listReaders"
 })
 public class MyServlet extends HttpServlet {
 @EJB
 private BookFacade bookFacade;
+private ReaderFacade readerFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -92,8 +98,36 @@ private BookFacade bookFacade;
                 break;
             case "/listBooks":
                 List<Book> listBooks = bookFacade.findAll();
-                request.setAttribute("listBooks", listBooks);
-                request.getRequestDispatcher("listBooks.jsp").forward(request, response);
+                request.setAttribute("listReaders", listBooks);
+                request.getRequestDispatcher("listReaders.jsp").forward(request, response);
+                break;
+                
+                case "/addReader":
+                request.getRequestDispatcher("/WEB-INF/addReaderForm.jsp").forward(request, response);
+                break;
+            case "/createReader":
+                String firstname = request.getParameter("firstname");
+                String lastname = request.getParameter("lastname");
+                String phone = request.getParameter("phone");
+                if ("".equals(firstname) || firstname == null
+                        || "".equals(lastname) || lastname == null
+                        || "".equals(phone) || phone == null){
+                    request.setAttribute("firstname", firstname);
+                    request.setAttribute("lastname", lastname);
+                    request.setAttribute("phone", phone);
+                    request.setAttribute("info", "Fill in all the fields.");
+                    request.getRequestDispatcher("/WEB-INF/addReaderForm.jsp").forward(request, response); 
+                    break;
+                }
+                Reader reader = new Reader(firstname, lastname, phone);
+                readerFacade.create(reader);
+                request.setAttribute("info", "Reader\"" +reader.getFirstname()+" " +reader.getLastname()+ "\" have been added");
+                request.getRequestDispatcher("index.jsp").forward(request, response);
+                break;
+            case "/listReaders":
+                List<Reader> listReaders = readerFacade.findAll();
+                request.setAttribute("listReaders", listReaders);
+                request.getRequestDispatcher("listReaders.jsp").forward(request, response);
                 break;
         }               
     }

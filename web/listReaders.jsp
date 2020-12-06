@@ -10,14 +10,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>List Books</title>
+        <title>Readers list</title>
     </head>
     <body>
-        <h1>List books:</h1>
+        <h1>Readers list:</h1>
         <ol>
-            <c:forEach var="book" items="${listBooks}" varStatus="status">
+            <c:forEach var="reader" items="${listReaders}" varStatus="status">
                 <li>
-                    ${book.name}. ${book.author}. ${book.publishedYear}
+                    ${reader.firstname}. ${reader.lastname}. ${reader.phone}
                 </li>
             </c:forEach>
         </ol>
