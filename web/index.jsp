@@ -18,6 +18,7 @@
         <a href="listBooks">List Books</a><hr>
         <a href="addReader">Add Reader</a><hr>
         <a href="listReaders">List Readers</a><hr>
-        
+        <a href="takeOnBookForm">Give out a book</a><hr>
+        <a href="returnBookForm">Return a book</a><hr>
     </body>
 </html>

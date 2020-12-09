@@ -1,12 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
-
  * Алгоритм создания Web приложения на Java
- * To change this template file, choose Tools | Templates
  * 
- * and open the template in the editor.
  * 1. Создать WebApplication в NetBeans
  * 2. Создать сущностные классы c аннотациями в пакете entity раздела Source Packages
  * 3. Создать базу данных и настроить persistence.xml.
@@ -25,12 +19,15 @@
  *    request.getRequestDispatcher("/WEB-INF/addBookForm.jsp").forward(request, response);
  * 10. Для получения объектов классов "фасадов" использовать аннотацию @EJB 
  *    в поле класса "MyServlet"
+ *
  */
 package servlets;
 
 import entity.Book;
+import entity.History;
 import entity.Reader;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.ejb.EJB;
@@ -41,9 +38,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import session.BookFacade;
 import session.ReaderFacade;
-
+import session.HistoryFacade;
+import session.ReaderFacade;
 /**
- *
  * @author Juri
  */
 @WebServlet(name = "MyServlet", urlPatterns = {
@@ -52,13 +49,21 @@ import session.ReaderFacade;
     "/listBooks",
     "/addReader",
     "/createReader",
-    "/listReaders"
+    "/listReaders",
+    "/takeOnBookForm",
+    "/takeOnBook",
+    "/returnBookForm",
+    "/returnBook",
+    
+    
 })
 public class MyServlet extends HttpServlet {
 @EJB
 private BookFacade bookFacade;
+@EJB
 private ReaderFacade readerFacade;
-
+@EJB
+private HistoryFacade historyFacade;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -100,9 +105,8 @@ private ReaderFacade readerFacade;
                 List<Book> listBooks = bookFacade.findAll();
                 request.setAttribute("listReaders", listBooks);
                 request.getRequestDispatcher("listReaders.jsp").forward(request, response);
-                break;
-                
-                case "/addReader":
+                break; 
+            case "/addReader":
                 request.getRequestDispatcher("/WEB-INF/addReaderForm.jsp").forward(request, response);
                 break;
             case "/createReader":
@@ -128,6 +132,36 @@ private ReaderFacade readerFacade;
                 List<Reader> listReaders = readerFacade.findAll();
                 request.setAttribute("listReaders", listReaders);
                 request.getRequestDispatcher("listReaders.jsp").forward(request, response);
+                break;
+            case "/takeOnBookForm":
+                listBooks = bookFacade.findAll();
+                request.setAttribute("listBooks", listBooks);
+                listReaders = readerFacade.findAll();
+                request.setAttribute("listReaders", listReaders);
+                request.getRequestDispatcher("/WEB-INF/takeOnBookForm.jsp").forward(request, response);
+                break;
+            case "/takeOnBook":
+                String bookId = request.getParameter("bookId");
+                book = bookFacade.find(Long.parseLong(bookId));
+                String readerId = request.getParameter("readerId");
+                reader = readerFacade.find(Long.parseLong(readerId));
+                History history = new History(book, reader, new GregorianCalendar().getTime(), null);
+                historyFacade.create(history);
+                request.setAttribute("info", "Книга \""+book.getName()+"\" выдана читателю");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                break;
+            case "/returnBookForm":
+                List<History> listReadBooks = historyFacade.findReadBook();
+                request.setAttribute("listReadBooks", listReadBooks);
+                request.getRequestDispatcher("/WEB-INF/returnBookForm.jsp").forward(request, response);
+                break;    
+            case "/returnBook":
+                String historyId = request.getParameter("historyId");
+                history = historyFacade.find(Long.parseLong(historyId));
+                history.setReturnDate(new GregorianCalendar().getTime());
+                historyFacade.edit(history);
+                request.setAttribute("info", "Книга \""+history.getBook().getName()+"\" возвращена в библиотеку");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
                 break;
         }               
     }
