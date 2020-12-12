@@ -11,19 +11,27 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Books list</title>
+    <title>Give out a book</title>
   </head>
   <body>
-    <h1>Return book:</h1>
-    <form action="returnBook" method="POST">
-        <select name="historyId">
-          <option value="">Choose returned book</option>
-              <c:forEach var="history" items="${listReadBooks}" varStatus="status">
-                  <option value="${history.id}">This book "${history.book.name}" read ${history.reader.firstname} ${history.reader.lastname}</option>
+    <h1>Give out a book</h1>
+    <form action="takeOnBook" method="POST">
+        <p>Select book:</p>
+        <select name="bookId">
+          <option value="">Select book</option>
+              <c:forEach var="book" items="${listBooks}" varStatus="status">
+                  <option value="${book.id}">${book.name}. ${book.author}. ${book.publishedYear}</option>
               </c:forEach>
         </select>
-      <br><br>
-      <input type="submit" value="Return book">
+        <p>Select reader:</p>
+        <select name="readerId">
+          <option value="">Select book</option>
+              <c:forEach var="reader" items="${listReaders}" varStatus="status">
+                  <option value="${reader.id}">${reader.firstname} ${reader.lastname}. ${reader.phone}</option>
+              </c:forEach>
+        </select>
+        <br><br>
+        <input type="submit" value="Give out a book">
     </form>
   </body>
 </html>

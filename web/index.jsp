@@ -14,9 +14,11 @@
     <body>
         <h1>Our Library</h1>
         <p>${info}</p>
+        <a href="logout">Output</a><br>
+        <a href="loginForm">Entrance</a><br>
         <a href="addBook">Add Book</a><hr>
         <a href="listBooks">List Books</a><hr>
-        <a href="addReader">Add Reader</a><hr>
+        <a href="registrationForm">Add Reader</a><hr>
         <a href="listReaders">List Readers</a><hr>
         <a href="takeOnBookForm">Give out a book</a><hr>
         <a href="returnBookForm">Return a book</a><hr>
