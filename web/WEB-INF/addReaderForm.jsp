@@ -16,7 +16,7 @@
         <p>${info}</p>
         <br>
         <a href="index.jsp">Home</a><br>
-        <form action="createReader" method="POST">
+        <form action="registration" method="POST">
             Reader first name: <input type="text" name="firstname" value="${firstname}"><br>
             Reader last name: <input type="text" name="lastname" value="${lastname}"><br>
             Phone number: <input type="text" name="phone" value="${phone}"><br>
