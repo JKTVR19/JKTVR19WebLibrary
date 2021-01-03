@@ -25,7 +25,7 @@
         </select>
         <p>Select reader:</p>
         <select name="readerId">
-          <option value="">Select book</option>
+          <option value="">Select reader</option>
               <c:forEach var="reader" items="${listReaders}" varStatus="status">
                   <option value="${reader.id}">${reader.firstname} ${reader.lastname}. ${reader.phone}</option>
               </c:forEach>

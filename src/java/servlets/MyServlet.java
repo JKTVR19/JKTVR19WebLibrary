@@ -120,8 +120,8 @@ private HistoryFacade historyFacade;
                 break;
             case "/listBooks":
                 List<Book> listBooks = bookFacade.findAll();
-                request.setAttribute("listReaders", listBooks);
-                request.getRequestDispatcher("listReaders.jsp").forward(request, response);
+                request.setAttribute("listBooks", listBooks);
+                request.getRequestDispatcher("listBooks.jsp").forward(request, response);
                 break; 
 //            
             case "/listReaders":
